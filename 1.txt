@@ -1,0 +1,163 @@
+	
+possible duplicate of Styleize <input type="file"> – Gilles Jun 20 '11 at 10:22
+79	 	
+@Gilles fml. you're trying to make an infinite loop – EaterOfCode Jul 29 '13 at 9:36
+  	 	
+@EaterOfCode what does your sentence mean? – Abdul Jabbar WebBestow Dec 4 '14 at 6:43
+8	 	
+@AbdulJabbarWebBestow if you click the link provided by Gilles you will see that it says "Possible duplicate" too, and redirects here. Recursivity. – saiyancoder Dec 11 '14 at 6:45 
+  	 	
+@saiyancoder OK thanks actually I thought that this is some kind of slang sentence. Thanks – Abdul Jabbar WebBestow Dec 11 '14 at 9:09
+show 1 more comment
+37 Answers
+active oldest votes
+1 2 next
+up vote
+141
+down vote
+accepted
+Styling file inputs is notoriously difficult, as most browsers will not change the appearance from either css or javascript.
+
+Even the size of the input will not respond to the likes of:
+
+<input type="file" style="width:200px">
+Instead you will need to use the size attribute:
+
+<input type="file" size="60" />
+For any styling more sophisticated than that (e.g. changing the look of the browse button) you will need to look at the tricksy approach of overlaying a styled button and input box on top of the native file input. The article already mentioned by rm at www.quirksmode.org/dom/inputfile.html is the best one I've seen.
+
+shareimprove this answer
+edited Oct 6 '11 at 4:51
+answered Apr 3 '09 at 16:11
+
+Jonathan Moffatt
+8,00043743
+5	 	
+Just found a jquery solution based on this script here: blog.vworld.at/2008/08/21/… – mtness Feb 3 '11 at 16:23 
+1	 	
+@TLK Ryan's answer won't work in IE when trying to do iframe uploads. It gives you an access denied error. For normal uploads, I agree it is the easiest though! – frostymarvelous Dec 30 '13 at 13:54
+3	 	
+A much simpler solution than quirksmode's is explained here. Just putting that link here, since this answer is basically a link-only answer anyway. – Joeytje50 May 7 '14 at 16:30
+8	 	
+For anyone interested in a modern approach, i'd suggest looking at this answer. It doesn't require JavaScript like some of the other answers either. – Josh Crozier Sep 13 '14 at 17:43
+2	 	
+@JoshCrozier posted an insanely much better solution. Even beats fake-mouseclicking solutions :) – Lodewijk Sep 18 '14 at 0:16
+show 1 more comment
+up vote
+551
+down vote
+You don't need JavaScript for this! Here is a cross-browser solution:
+
+See this example! - It works in Chrome/FF/IE - (IE10/9/8/7)
+
+The best approach would be to have a custom label element with a for attribute attached to a hidden file input element. (The label's for attribute must match the file element's id in order for this to work).
+
+<label for="file-upload" class="custom-file-upload">
+    Custom Upload
+</label>
+<input id="file-upload" type="file"/>
+As an alternative, you could also just wrap the file input element with a label directly: (example)
+
+<label class="custom-file-upload">
+    <input type="file"/>
+    Custom Upload
+</label>
+In terms of styling, just hide1 the input element using the attribute selector.
+
+input[type="file"] {
+    display: none;
+}
+Then all you need to do is style the custom label element. (example).
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+1 - It's worth noting that if you hide the element using display: none, it won't work in IE8 and below. Also be aware of the fact that jQuery validate doesn't validate hidden fields by default. If either of those things are an issue for you, here are two different methods to hide the input (1, 2) that work in these circumstances.
+
+shareimprove this answer
+edited May 23 at 12:26
+
+Community
+11
+answered Sep 13 '14 at 17:24
+
+Josh Crozier
+127k30209192
+50	 	
+Absolutely amazing compared to the other options out there! This solution deserves so many more upvotes! – Lodewijk Sep 18 '14 at 0:15
+22	 	
+I do have a question with this one though, when selecting a file how would we go about then displaying the file name ? – Richlewis Jan 20 '15 at 12:17
+1	 	
+@Richlewis Any luck with displaying the file name? I´d like to display the image as well... – Asle G Feb 10 '15 at 9:17
+11	 	
+How to display the name of selected file if display: none is set for input[type=file]? – Sarthak Singhal Aug 7 '15 at 9:17 
+14	 	
+Great solution, but you actually do need javascript. If you want to display the file name, as other people have been asking, you need to add a span between the label and the hidden input: <span id="file-selected"></span>. Then update the span on the change event: $('#file-upload').bind('change', function() { var fileName = ''; fileName = $(this).val(); $('#file-selected').html(fileName); }) – Sam Apr 6 '16 at 19:05 
+show 14 more comments
+up vote
+166
+down vote
+follow these steps then you can create custom styles for your file upload form:
+
+1.) this is the simple html form(please read the html comments i have written here below)
+
+    <form action="#type your action here" method="POST" enctype="multipart/form-data">
+    <div id="yourBtn" style="height: 50px; width: 100px;border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">Click to upload!</div>
+    <!-- this is your file input tag, so i hide it!-->
+    <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
+    <!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
+    <input type="submit" value='submit' >
+    </form>
+2.) then use this simple script to pass the click event to file input tag.
+
+    function getFile(){
+        document.getElementById("upfile").click();
+    }
+now you can use any type of a styling without worrying how to change default styles. i know this very well, because i have been trying to change the default styles for month and a half. believe me it's very hard because different browsers have different upload input tag. So use this one to build your custom file upload forms.Here is the full AUTOMATED UPLOAD code.
+
+<html>
+<head>
+<style>
+#yourBtn{
+   position: relative;
+       top: 150px;
+   font-family: calibri;
+   width: 150px;
+   padding: 10px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border: 1px dashed #BBB; 
+   text-align: center;
+   background-color: #DDD;
+   cursor:pointer;
+  }
+</style>
+<script type="text/javascript">
+ function getFile(){
+   document.getElementById("upfile").click();
+ }
+ function sub(obj){
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
+    document.myForm.submit();
+    event.preventDefault();
+  }
+</script>
+</head>
+<body>
+<center>
+<form action="#type your action here" method="POST" enctype="multipart/form-data" name="myForm">
+<div id="yourBtn" onclick="getFile()">click to upload a file</div>
+<!-- this is your file input tag, so i hide it!-->
+<!-- i used the onchange event to fire the form submission-->
+<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)"/></div>
+<!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
+<!-- <input type="submit" value='submit' > -->
+</form>
+</center>
+</body>
+</html>

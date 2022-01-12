@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>GRHM</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/landing-page.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+
+
+</head>
+    <body>
+<header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>Search Away</h1>
+          <h3>A Mini-Project by Group 11</h3>
+          <hr class="intro-divider">
+          <ul class="list-inline intro-social-buttons">
+            <li class="list-inline-item">
+              <a href="/Positional_Index" class="btn btn-secondary btn-lg home-btn">
+                
+                <span class="network-name">Positional Index</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/Inverted_Index" class="btn btn-secondary btn-lg home-btn">
+                
+                <span class="network-name">Inverted Index</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/Add_Document" class="btn btn-secondary btn-lg home-btn">
+                
+                <span class="network-name">Upload Your Document</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    	<script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+
+    </body>
+</html>

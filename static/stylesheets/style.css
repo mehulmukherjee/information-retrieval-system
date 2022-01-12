@@ -1,0 +1,21 @@
+@font-face {
+	font-family: 'run';
+	src: url("assets/fonts/run.ttf");
+	font-family: 'NexaLight';
+	src: url("assets/fonts/Nexa Light.otf");
+}
+
+body{
+	background-image: url('assets/bkf.png');
+	background-size: cover;
+  	font-family: run !important;
+}
+.all-buttons, .home-btn{
+	background-color: black;
+	color: white;
+	border-radius: 300px;
+}
+.home-btn:hover {
+	background-color: white;
+	color: black;
+}
